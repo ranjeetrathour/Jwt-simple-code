@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.crypto.CryptoService;
 import com.example.dto.request.LoginRequest;
 import com.example.dto.response.LoginResponse;
 import com.example.entity.User;
@@ -19,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
+    private final CryptoService cryptoService;
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
@@ -35,6 +37,12 @@ public class AuthServiceImpl implements AuthService {
                         HttpStatus.NOT_FOUND.value(),
                         "Incorrect username or password"
                 ));
+        if (!loginRequest.getPassword().equals(cryptoService.decrypt(user.getPassword()))){
+            throw new GenericException(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Incorrect username or password"
+            );
+        }
 
         String token = jwtUtils.generateToken(user.getUsername());
 

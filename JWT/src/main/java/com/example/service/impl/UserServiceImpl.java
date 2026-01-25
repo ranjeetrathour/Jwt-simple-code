@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.crypto.CryptoService;
 import com.example.dto.request.UserCreateRequest;
 import com.example.dto.response.UserCreateResponse;
 import com.example.entity.User;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final CryptoService cryptoService;
 
     @Override
     public UserCreateResponse createUser(UserCreateRequest request) {
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword()); // hash later
+        user.setPassword(cryptoService.encrypt(request.getPassword())); // hash later
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPhoneNumber(request.getPhoneNumber());
