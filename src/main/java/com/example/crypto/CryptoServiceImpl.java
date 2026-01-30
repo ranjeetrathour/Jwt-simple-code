@@ -3,6 +3,7 @@ package com.example.crypto;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,8 +12,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Base64;
 
-@Component
-@AllArgsConstructor
+@Service
 public class CryptoServiceImpl implements CryptoService {
 
     private final String cryptoKey = "fhgjhkjlk;llkjghhjlkjkhjfdgfhjhkjg";
