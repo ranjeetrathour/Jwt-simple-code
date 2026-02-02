@@ -1,7 +1,7 @@
 package com.example.endpoint;
 
+import com.example.LoginResponse;
 import com.example.dto.request.LoginRequest;
-import com.example.dto.response.LoginResponse;
 import com.example.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
